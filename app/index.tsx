@@ -69,13 +69,7 @@ const Home = () => {
       </View>
 
       <View style={[styles.scoreRow, { top: profileIconPosition.top + profileIconSize + 280, left: profileCenter - 45 / 2 }]}>
-      <Text style={styles.reliabilityScore}>75</Text>
-      <IconSymbol
-        name="percent"
-        size={40}
-        color="#5a5a5aff"
-        style={styles.percentIcon}
-      />
+      <Text style={styles.reliabilityScore}>75 %</Text>
       </View>
 
 
@@ -127,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#b6b4b4ff',
   },
   infoText: {
     fontSize: 20,
@@ -151,10 +145,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     alignItems: 'center',
-  },
-
-  percentIcon: {
-    marginLeft: 6,
   },
 
 });
