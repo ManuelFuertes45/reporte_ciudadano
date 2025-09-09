@@ -3,5 +3,18 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  }
+  },
+  "sqltools.connections": [
+    {
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 6264,
+      "askForPassword": true,
+      "driver": "PostgreSQL",
+      "name": "dbproyect",
+      "database": "dbjmr",
+      "username": "mifc"
+    }
+  ]
 }
