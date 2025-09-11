@@ -1,10 +1,13 @@
+import { ReportForm } from '@/components/ReportForm';
 import { IconSymbol } from '@/components/ui/IconSymbol';
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const offset = 300;
 
-const Report = () => {
+const report = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={{ flex: 1 }}>
       {/* Top Bar with Icons */}
@@ -13,15 +16,17 @@ const Report = () => {
           name="search"
           size={30}
           color="#ffffff"
-          style={[styles.icon, { left: offset }]}
+          style={[styles.searchIcon, { left: offset }]}
         />
         <View style={[styles.rectangleBox, { left: offset + 40 }]} />
-        <IconSymbol
-          name="add"
-          size={30}
-          color="#ffffff"
-          style={[styles.icon, { right: offset }]}
-        />
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <IconSymbol
+            name="add"
+            size={30}
+            color="#ffffff"
+            style={[styles.addIcon, { right: offset }]}
+          />
+        </TouchableOpacity>
       </View>
 
       {/* Filter Icon Below Top Bar */}
@@ -50,55 +55,56 @@ const Report = () => {
               </View>
             </View>
 
-            {/* Rectangle with image icon and titleText inside */}
             <View style={styles.scrollRectangle}>
-  <IconSymbol
-    name="image"
-    size={200}
-    color="#5a5a5aff"
-    style={{
-      position: 'absolute',
-      top: -10,
-      left: '5%',
-      marginLeft: -40,
-    }}
-  />
-  <Text style={styles.titleText}>Title</Text>
-  <IconSymbol
-    name="build"
-    size={70}
-    color="#5a5a5aff"
-    style={{
-      position: 'absolute',
-      top: 75,     // 👈 adjust vertically
-      right: 230,   // 👈 adjust horizontally
-    }}
-  />
-  <IconSymbol
-    name="arrow-drop-down"
-    size={40}
-    color="#5a5a5aff"
-    style={{
-      position: 'absolute',
-      bottom: 5,   // 👈 adjust vertically
-      left: 500,     // 👈 adjust horizontally
-    }}
-  />
-  <IconSymbol
-    name="arrow-drop-up"
-    size={40}
-    color="#5a5a5aff"
-    style={{
-      position: 'absolute',
-      bottom: 3,   // 👈 adjust vertically
-      left: 515,     // 👈 adjust horizontally
-    }}
-  />
-</View>
-
+              <IconSymbol
+                name="image"
+                size={200}
+                color="#5a5a5aff"
+                style={{
+                  position: 'absolute',
+                  top: -10,
+                  left: '5%',
+                  marginLeft: -40,
+                }}
+              />
+              <Text style={styles.titleText}>Title</Text>
+              <IconSymbol
+                name="build"
+                size={70}
+                color="#5a5a5aff"
+                style={{
+                  position: 'absolute',
+                  top: 75,
+                  right: 230,
+                }}
+              />
+              <IconSymbol
+                name="arrow-drop-down"
+                size={40}
+                color="#5a5a5aff"
+                style={{
+                  position: 'absolute',
+                  bottom: 5,
+                  left: 500,
+                }}
+              />
+              <IconSymbol
+                name="arrow-drop-up"
+                size={40}
+                color="#5a5a5aff"
+                style={{
+                  position: 'absolute',
+                  bottom: 3,
+                  left: 515,
+                }}
+              />
+            </View>
           </View>
         ))}
       </ScrollView>
+
+      {/* ✅ Modal goes here */}
+      <ReportForm visible={modalVisible} onClose={() => setModalVisible(false)} />
     </View>
   );
 };
@@ -110,10 +116,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderColor: '#5a5a5aff',
     justifyContent: 'center',
+    position: 'relative',
   },
-  icon: {
+  searchIcon: {
     position: 'absolute',
-    top: 10,
+    top: 10, // adjust independently
+  },
+  addIcon: {
+    position: 'absolute',
+    top: -13, // adjust independently
   },
   rectangleBox: {
     position: 'absolute',
@@ -169,7 +180,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     position: 'absolute',
-    bottom: 130, // 👈 adjust this to move vertically
+    bottom: 130,
     left: 300,
     fontSize: 25,
     color: '#5a5a5aff',
@@ -177,4 +188,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Report;
+export default report;

@@ -36,7 +36,7 @@ class ReportsHandler:
         report_dict = self.map_to_dict(report)
         return jsonify(report_dict), HTTP_STATUS.OK
 
-    def insertReport(self):
+    def insertReport(self, data):
         data = request.get_json()
 
         if not data:

@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from load import load_db
 
 
-class reportsDAO:
+class ReportsDAO:
 
     def __init__(self):
         load_dotenv()

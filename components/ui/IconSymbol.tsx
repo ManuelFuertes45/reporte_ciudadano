@@ -36,6 +36,7 @@ const MAPPING: Record<string, MaterialIconName> = { // This is where I add the s
   'edit' : 'edit', // used (in paper)
   'receipt-long' : 'receipt-long', // used (in paper)
   'account-circle' : 'account-circle', // used (in paper)
+  'close' : 'close',
 } as const;
 
 type IconSymbolName = keyof typeof MAPPING;

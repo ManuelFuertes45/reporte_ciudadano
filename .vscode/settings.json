@@ -13,8 +13,8 @@
       "askForPassword": true,
       "driver": "PostgreSQL",
       "name": "dbproyect",
-      "database": "dbjmr",
-      "username": "mifc"
+      "database": "dbjmr2",
+      "username": "mifc2"
     }
   ]
 }

@@ -1,3 +1,5 @@
+// needs refactoring for spacing (should be percentages)
+
 import { IconSymbol } from '@/components/ui/IconSymbol'; // adjust path if needed
 import { Tabs } from 'expo-router';
 import React from 'react';
@@ -24,7 +26,7 @@ const _layout = () => {
           tabBarIcon: ({ color }) => (
             <IconSymbol name="home" color={color} />
           ),
-          headerTitle: '', // 👈 This removes the top title
+          headerTitle: '', // removes the top title
         }}
       />
       <Tabs.Screen
@@ -33,7 +35,7 @@ const _layout = () => {
           tabBarIcon: ({ color }) => (
             <IconSymbol name="report-problem" color={color} />
           ),
-          headerTitle: '', // 👈 This removes the top title
+          headerTitle: '', // removes the top title
         }}
       />
     </Tabs>

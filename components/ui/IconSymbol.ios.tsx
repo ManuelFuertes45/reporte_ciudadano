@@ -24,6 +24,7 @@ const IOS_SYMBOLS: Record<string, SymbolViewProps['name']> = {
   'edit' : 'pencil', // used (in paper)
   'receipt-long' : 'doc.text.magnifyingglass', // used (in paper)
   'account-circle' : 'person.crop.circle', // used (in paper)
+  'close' : 'cross'
   // Add more mappings here
 };
 

@@ -1,3 +1,5 @@
+// needs refactoring for spacing (should be percentages)
+
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
   },
   userName: {
     position: 'absolute',
-    alignSelf: 'center', // 👈 This centers it horizontally
+    alignSelf: 'center', // centers it horizontally
     fontSize: 25,
     fontWeight: '600',
     color: '#5a5a5aff',
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
   infoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start', // 👈 aligns content to the left
+    justifyContent: 'flex-start', // aligns content to the left
   },
   infoIcon: {
     marginRight: 8,
