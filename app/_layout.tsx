@@ -1,47 +1,45 @@
-// needs refactoring for spacing (should be percentages)
-
-import { IconSymbol } from '@/components/ui/IconSymbol'; // adjust path if needed
+import { IconSymbol } from '@/components/ui/IconSymbol';
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-
+// Defines the layout of the bottom tab bar
 const _layout = () => {
-  
   return (
     <Tabs
       screenOptions={{
-        tabBarShowLabel: false,
+        tabBarShowLabel: false, // Icons in the bottom tab bar won't have labels
         tabBarStyle: {
-          backgroundColor: '#5a5a5aff',
-          borderTopColor: '#5a5a5aff',
-          borderTopWidth: 3,
+          backgroundColor: '#5a5a5aff', // Tab bar background color
+          borderTopColor: '#5a5a5aff', // Tab bar border color
+          borderTopWidth: 3, // Thickness of top border
         },
-        tabBarActiveTintColor: '#fff',
-        tabBarInactiveTintColor: '#8d8d8dff',
+        tabBarActiveTintColor: '#fff', // Icon color when tab is active
+        tabBarInactiveTintColor: '#8d8d8dff', // Icon color when tab is inactive
       }}
     >
-      <Tabs.Screen
-        name="index"
+
+      <Tabs.Screen // Home screen
+        name="index" // Route name for home screen
         options={{
           tabBarIcon: ({ color }) => (
             <IconSymbol name="home" color={color} />
           ),
-          headerTitle: '', // removes the top title
+          headerTitle: '', // Removes top header title
         }}
       />
-      <Tabs.Screen
-        name="report"
+
+      <Tabs.Screen // Report screen
+        name="report" // Route name for report screen
         options={{
           tabBarIcon: ({ color }) => (
             <IconSymbol name="report-problem" color={color} />
           ),
-          headerTitle: '', // removes the top title
+          headerTitle: '', // Removes top header title
         }}
       />
+
     </Tabs>
   );
 };
 
 export default _layout;
-
-

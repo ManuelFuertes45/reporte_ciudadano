@@ -1,24 +1,27 @@
-// needs refactoring for spacing (should be percentages)
-
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
 const Home = () => {
+  // Horizontal spacing between bell and gear icons relative to the profile icon
+  const horizontalOffset = 150;
 
-  const horizontalOffset = 150; // Space between the bell icon and gear icon from profile icon.
-
-  // Custom position for profile icon
+  // Profile icon configuration
   const profileIconSize = 200;
   const profileIconColor = '#5a5a5aff';
-  const screenWidth = Dimensions.get('window').width; // This is important to centralize the profile icon, since I dont know the exact horizontal value.
-  const profileIconPosition = { // top: the height, increase value to lower icon. left: move horizontally, increase value to move it to the right.
+
+  // Get screen width to center the profile icon dynamically
+  const screenWidth = Dimensions.get('window').width;
+
+  // Position profile icon in the center horizontally and slightly from the top
+  const profileIconPosition = {
     top: 20,
     left: (screenWidth - profileIconSize) / 2,
   };
 
-  const profileCenter = profileIconPosition.left + profileIconSize / 2; // This gives the value of the point in the middle of the profile icon.
+  // Calculate the horizontal center of the profile icon
+  const profileCenter = profileIconPosition.left + profileIconSize / 2;
 
-  // Custom position for bell icon
+  // Bell icon configuration and position (right of profile icon)
   const bellIconSize = 50;
   const bellIconColor = '#5a5a5aff';
   const bellIconPosition = {
@@ -26,7 +29,7 @@ const Home = () => {
     left: profileCenter + horizontalOffset - bellIconSize / 2,
   };
 
-  // Custom position for gear icon
+  // Gear icon configuration and position (left of profile icon)
   const gearIconSize = 50;
   const gearIconColor = '#5a5a5aff';
   const gearIconPosition = {
@@ -34,7 +37,7 @@ const Home = () => {
     left: profileCenter - horizontalOffset - gearIconSize / 2,
   };
 
-  // Custom position for pencil icon
+  // Pencil icon configuration and position (bottom-right of profile icon)
   const pencilIconSize = 30;
   const pencilIconColor = '#5a5a5aff';
   const pencilIconPosition = {
@@ -44,7 +47,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-
+      {/* Profile icon */}
       <IconSymbol
         name="account-circle"
         size={profileIconSize}
@@ -52,29 +55,33 @@ const Home = () => {
         style={[styles.icon, profileIconPosition]}
       />
 
+      {/* Username text below profile icon */}
       <Text style={[styles.userName, { top: profileIconPosition.top + profileIconSize + 10 }]}>
         Manuel Fuertes
       </Text>
 
+      {/* Info box: Rules */}
       <View style={[styles.infoBox, { top: profileIconPosition.top + profileIconSize + 70 }]}>
-      <View style={styles.infoRow}>
-      <IconSymbol name="book" size={24} color="#5a5a5aff" style={styles.infoIcon} />
-      <Text style={styles.infoText}>Rules</Text>
-      </View>
+        <View style={styles.infoRow}>
+          <IconSymbol name="book" size={24} color="#5a5a5aff" style={styles.infoIcon} />
+          <Text style={styles.infoText}>Rules</Text>
+        </View>
       </View>
 
+      {/* Info box: History */}
       <View style={[styles.infoBox, { top: profileIconPosition.top + profileIconSize + 140 }]}>
-      <View style={styles.infoRow}>
-      <IconSymbol name="receipt-long" size={24} color="#5a5a5aff" style={styles.infoIcon} />
-      <Text style={styles.infoText}>History</Text>
-      </View>
+        <View style={styles.infoRow}>
+          <IconSymbol name="receipt-long" size={24} color="#5a5a5aff" style={styles.infoIcon} />
+          <Text style={styles.infoText}>History</Text>
+        </View>
       </View>
 
+      {/* Reliability score centered below info boxes */}
       <View style={[styles.scoreRow, { top: profileIconPosition.top + profileIconSize + 280, left: profileCenter - 45 / 2 }]}>
-      <Text style={styles.reliabilityScore}>75 %</Text>
+        <Text style={styles.reliabilityScore}>75 %</Text>
       </View>
 
-
+      {/* Notification (bell) icon */}
       <IconSymbol
         name="notifications"
         size={bellIconSize}
@@ -82,6 +89,7 @@ const Home = () => {
         style={[styles.icon, bellIconPosition]}
       />
 
+      {/* Settings (gear) icon */}
       <IconSymbol
         name="settings"
         size={gearIconSize}
@@ -89,33 +97,34 @@ const Home = () => {
         style={[styles.icon, gearIconPosition]}
       />
 
+      {/* Edit (pencil) icon */}
       <IconSymbol
         name="edit"
         size={pencilIconSize}
         color={pencilIconColor}
         style={[styles.icon, pencilIconPosition]}
       />
-
-      </View>
+    </View>
   );
 };
 
+// Styles for layout and components
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e0e0e0ff',
+    backgroundColor: '#e0e0e0ff', // Light gray background
   },
   icon: {
-    position: 'absolute',
+    position: 'absolute', // Allows manual positioning
   },
   userName: {
     position: 'absolute',
-    alignSelf: 'center', // centers it horizontally
+    alignSelf: 'center', // Centers text horizontally
     fontSize: 25,
     fontWeight: '600',
     color: '#5a5a5aff',
   },
-  infoBox: {
+  infoBox: { // Box configuration that holds Rules and History
     position: 'absolute',
     alignSelf: 'center',
     width: 250,
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#b6b4b4ff',
   },
-  infoText: {
+  infoText: { // The text inside the boxes (Rules and History)
     fontSize: 20,
     color: '#5a5a5aff',
     textAlign: 'center',
@@ -133,12 +142,12 @@ const styles = StyleSheet.create({
   infoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start', // aligns content to the left
+    justifyContent: 'flex-start', // Aligns icon and text to the left
   },
   infoIcon: {
-    marginRight: 8,
+    marginRight: 8, // Space between icon and text
   },
-  reliabilityScore: {
+  reliabilityScore: { // Edits the size of font and visuals of the reliability score
     fontSize: 40,
     fontWeight: 'bold',
     color: '#5a5a5aff',
@@ -146,9 +155,8 @@ const styles = StyleSheet.create({
   scoreRow: {
     position: 'absolute',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center', // Centers score number (reliability number)
   },
-
 });
 
 export default Home;

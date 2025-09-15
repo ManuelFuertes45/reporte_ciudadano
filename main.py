@@ -10,5 +10,10 @@ def handleReport():
     handler = ReportsHandler()
     return handler.insertReport(request.json)
 
+@app.route("/report", methods=["GET"])
+def getReports():
+    handler = ReportsHandler()
+    return handler.getAllReports()
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
