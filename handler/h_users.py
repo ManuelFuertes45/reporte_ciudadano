@@ -17,6 +17,30 @@ class UsersHandler:
         users = UsersDAO().getAllUsers()
         users_dict_list = [self.map_to_dict(user) for user in users]
         return jsonify(users_dict_list), HTTP_STATUS.OK
+    
+    def loginUser(self, data):
+        if not data:
+            return jsonify({"success": False, "error_msg": "Missing login data"}), HTTP_STATUS.BAD_REQUEST
+
+        try:
+            username = data["username"]
+            password = data["password"]
+            position = data["position"]
+        except KeyError as e:
+            return jsonify({"success": False, "error_msg": f"Missing field: {str(e)}"}), HTTP_STATUS.BAD_REQUEST
+
+        dao = UsersDAO()
+        user = dao.getUserByUsername(username)
+
+        if not user:
+            return jsonify({"success": False, "error_msg": "User not found"}), HTTP_STATUS.NOT_FOUND
+
+        # Validate credentials
+        if user[2] != password or user[3] != position:
+            return jsonify({"success": False, "error_msg": "Invalid credentials"}), HTTP_STATUS.UNAUTHORIZED
+
+        return jsonify({"success": True}), HTTP_STATUS.OK
+
 
     def getUserById(self, user_id):
         user = UsersDAO().getUserById(user_id)

@@ -1,19 +1,17 @@
-import { useAuth } from '@/context/AuthContext';
 import { Picker } from '@react-native-picker/picker';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
-export default function Login() {
+export default function Registration() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [position, setPosition] = useState('civilian');
   const router = useRouter();
-  const { login } = useAuth();
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      const response = await fetch('http://192.168.4.22:5000/login', {
+      const response = await fetch('http://192.168.4.22:5000/registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password, position }),
@@ -21,21 +19,21 @@ export default function Login() {
 
       const data = await response.json();
 
-      if (data.success) {
-        login({ username, position });
-        router.replace('/(tabs)/home');
+      if (response.ok) {
+        alert('✅ Registration successful');
+        router.replace('/'); // Go back to login
       } else {
-        alert('Invalid credentials');
+        alert(`❌ Registration failed: ${data.error_msg || 'Unknown error'}`);
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Registration error:', error);
       alert('❌ Could not connect to server');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Create Account</Text>
 
       <TextInput
         style={styles.input}
@@ -64,9 +62,8 @@ export default function Login() {
         <Picker.Item label="Administrator" value="administrator" />
       </Picker>
 
-      <Button title="Log In" onPress={handleLogin} />
-      <Button title="Register" onPress={() => router.push('/registration')} />
-
+      <Button title="Register" onPress={handleRegister} />
+      <Button title="Back to Login" onPress={() => router.replace('/')} />
     </View>
   );
 }

@@ -13,6 +13,13 @@ class UsersDAO:
         with self.conn.cursor() as cur:
             cur.execute(query)
             return cur.fetchall()
+        
+    def getUserByUsername(self, username):
+        query = "SELECT * FROM users WHERE username = %s"
+        with self.conn.cursor() as cur:
+            cur.execute(query, (username,))
+            return cur.fetchone()
+
 
     def getUserById(self, user_id):
         query = "SELECT * FROM users WHERE id = %s"
