@@ -20,14 +20,14 @@ export default function Registration() {
       const data = await response.json();
 
       if (response.ok) {
-        alert('✅ Registration successful');
-        router.replace('/'); // Go back to login
+        alert('Registration successful');
+        router.replace('/');
       } else {
-        alert(`❌ Registration failed: ${data.error_msg || 'Unknown error'}`);
+        alert(`Registration failed: ${data.error_msg || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Registration error:', error);
-      alert('❌ Could not connect to server');
+      alert('Could not connect to server');
     }
   };
 

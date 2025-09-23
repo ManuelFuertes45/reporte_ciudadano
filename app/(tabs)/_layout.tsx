@@ -37,6 +37,16 @@ const _layout = () => {
         }}
       />
 
+      <Tabs.Screen // Report screen
+        name="sign" // Route name for report screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <IconSymbol name="report-problem" color={color} />
+          ),
+          headerTitle: '', // Removes top header title
+        }}
+      />
+
     </Tabs>
   );
 };

@@ -33,7 +33,7 @@ const report = () => {
         const data = await response.json();
         setReports(data); // Save reports to state
       } catch (error) {
-        console.error('❌ Failed to fetch reports:', error);
+        console.error('Failed to fetch reports:', error);
       }
     };
 
