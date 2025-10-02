@@ -1,34 +1,31 @@
-import { Picker } from '@react-native-picker/picker';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function Registration() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [position, setPosition] = useState('civilian');
+  const [rePassword, setRePassword] = useState('');
   const router = useRouter();
 
-  const handleRegister = async () => {
-    try {
-      const response = await fetch('http://192.168.4.22:5000/registration', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password, position }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert('Registration successful');
-        router.replace('/');
-      } else {
-        alert(`Registration failed: ${data.error_msg || 'Unknown error'}`);
-      }
-    } catch (error) {
-      console.error('Registration error:', error);
-      alert('Could not connect to server');
+  const handleRegister = () => {
+    // Basic validation
+    if (!username || !email || !password || !rePassword) {
+      alert('Please fill all fields');
+      return;
     }
+
+    if (password !== rePassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    // Mock registration: redirect to confirmation page with data
+    router.push({
+      pathname: '/confirmation',
+      params: { username, email, password },
+    });
   };
 
   return (
@@ -52,15 +49,23 @@ export default function Registration() {
         placeholderTextColor="#aaa"
       />
 
-      <Picker
-        selectedValue={position}
-        onValueChange={(value) => setPosition(value)}
-        style={styles.picker}
-      >
-        <Picker.Item label="Civilian" value="civilian" />
-        <Picker.Item label="Public Worker" value="public_worker" />
-        <Picker.Item label="Administrator" value="administrator" />
-      </Picker>
+      <TextInput
+        style={styles.input}
+        placeholder="Re-enter Password"
+        value={rePassword}
+        onChangeText={setRePassword}
+        secureTextEntry
+        placeholderTextColor="#aaa"
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        placeholderTextColor="#aaa"
+      />
 
       <Button title="Register" onPress={handleRegister} />
       <Button title="Back to Login" onPress={() => router.replace('/')} />
@@ -72,8 +77,12 @@ const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 30, backgroundColor: '#f5f5f5' },
   title: { fontSize: 32, fontWeight: 'bold', marginBottom: 40, textAlign: 'center', color: '#333' },
   input: {
-    height: 50, borderColor: '#ccc', borderWidth: 1, borderRadius: 8,
-    paddingHorizontal: 15, marginBottom: 20, backgroundColor: '#fff',
+    height: 50,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    marginBottom: 20,
+    backgroundColor: '#fff',
   },
-  picker: { height: 50, marginBottom: 20, backgroundColor: '#fff' },
 });

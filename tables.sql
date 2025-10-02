@@ -2,16 +2,13 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    position VARCHAR(13) CHECK (position IN ('civilian', 'public_worker', 'administrator'))
+    position VARCHAR(13) CHECK (position IN ('civilian', 'administrator')),
+    email VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE civilians (
     id INTEGER PRIMARY KEY REFERENCES users(id),
     suspended VARCHAR(3) CHECK (suspended IN ('yes', 'no')) DEFAULT 'no'
-);
-
-CREATE TABLE public_workers (
-    id INTEGER PRIMARY KEY REFERENCES users(id)
 );
 
 CREATE TABLE administrators (

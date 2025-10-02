@@ -11,6 +11,7 @@ class UsersHandler:
             "username": user[1],
             "password": user[2],
             "position": user[3],
+            "email": user[4],
         }
 
     def getAllUsers(self):
@@ -26,6 +27,7 @@ class UsersHandler:
             username = data["username"]
             password = data["password"]
             position = data["position"]
+            email = data["email"]
         except KeyError as e:
             return jsonify({"success": False, "error_msg": f"Missing field: {str(e)}"}), HTTP_STATUS.BAD_REQUEST
 
@@ -36,7 +38,7 @@ class UsersHandler:
             return jsonify({"success": False, "error_msg": "User not found"}), HTTP_STATUS.NOT_FOUND
 
         # Validate credentials
-        if user[2] != password or user[3] != position:
+        if user[2] != password or user[3] != position or user[4] != email:
             return jsonify({"success": False, "error_msg": "Invalid credentials"}), HTTP_STATUS.UNAUTHORIZED
 
         return jsonify({"success": True}), HTTP_STATUS.OK
@@ -63,12 +65,13 @@ class UsersHandler:
             username = data["username"]
             password = data["password"]
             position = data["position"]
+            email = data["email"]
         except KeyError as e:
             error_msg = {"error_msg": f"Missing field: {str(e)}"}
             return jsonify(error_msg), HTTP_STATUS.BAD_REQUEST
 
         inserted_user = UsersDAO().insertUser(
-            username, password, position
+            username, password, position, email
         )
         if not inserted_user:
             error_msg = {"error_msg": "User not inserted"}
@@ -90,11 +93,12 @@ class UsersHandler:
         username = data.get("username")
         password = data.get("password")
         position = data.get("position")
+        email = data.get("email")
 
-        if username is None or password is None or position is None:
+        if username is None or password is None or position is None or email is None:
             return jsonify({"error_msg": "Missing status or rating"}), HTTP_STATUS.BAD_REQUEST
 
-        updated_user = dao.updateUser(user_id, username, password, position)
+        updated_user = dao.updateUser(user_id, username, password, position, email)
 
         if not updated_user:
             return jsonify({"error_msg": "User not updated"}), HTTP_STATUS.INTERNAL_SERVER_ERROR

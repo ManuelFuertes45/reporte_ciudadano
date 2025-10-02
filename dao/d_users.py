@@ -27,27 +27,27 @@ class UsersDAO:
             cur.execute(query, (user_id,))
             return cur.fetchone()
 
-    def insertUser(self, username, password, position):
+    def insertUser(self, username, password, position, email):
         query = """
             SELECT setval('users_id_seq', (SELECT MAX(id) FROM users), true);
-            INSERT INTO users (username, password, position)
-            VALUES (%s, %s, %s)
-            RETURNING id, username, password, position;
+            INSERT INTO users (username, password, position, email)
+            VALUES (%s, %s, %s, %s)
+            RETURNING id, username, password, position, email;
         """
 
         with self.conn.cursor() as cur:
-            cur.execute(query, (username, password, position))
+            cur.execute(query, (username, password, position, email))
             self.conn.commit()
             return cur.fetchone()
 
-    def updateUser(self, user_id, username, password, position):
+    def updateUser(self, user_id, username, password, position, email):
         query = """
             UPDATE users
-            SET username = %s, password = %s, position = %s 
+            SET username = %s, password = %s, position = %s, email= %s 
             WHERE id = %s
-            RETURNING id, username, password, position;
+            RETURNING id, username, password, position, email;
         """
-        values = (username, password, position, user_id)
+        values = (username, password, position, email, user_id)
 
         with self.conn.cursor() as cur:
             cur.execute(query, values)
@@ -57,7 +57,7 @@ class UsersDAO:
     def deleteUser(self, user_id):
         query = """
             DELETE FROM users WHERE id = %s
-            RETURNING id, username, password, position;
+            RETURNING id, username, password, position, email;
             """
 
         with self.conn.cursor() as cur:
