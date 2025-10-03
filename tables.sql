@@ -6,6 +6,15 @@ CREATE TABLE users (
     email VARCHAR(50) UNIQUE NOT NULL
 );
 
+CREATE TABLE verifications (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    code VARCHAR(6) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE civilians (
     id INTEGER PRIMARY KEY REFERENCES users(id),
     suspended VARCHAR(3) CHECK (suspended IN ('yes', 'no')) DEFAULT 'no'

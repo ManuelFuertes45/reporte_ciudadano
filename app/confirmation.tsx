@@ -1,22 +1,19 @@
-import { useRouter, useSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function Confirmation() {
   const router = useRouter();
-  const params = useSearchParams(); // ✅ hook instead of type
+  const params = useLocalSearchParams(); // <-- Correct way now
 
-  const username = params.username || '';
-  const email = params.email || '';
-  const password = params.password || '';
+  const username = params.username as string || '';
+  const email = params.email as string || '';
 
   const [code, setCode] = useState('');
 
   const handleConfirm = () => {
-    // Mock verification
     alert(`User ${username} verified with code ${code}`);
-    // After verification, you would call your backend to create the user
-    router.replace('/'); // Redirect to login or home
+    router.replace('/');
   };
 
   return (
